@@ -196,11 +196,19 @@ class Repository
      */
     public static function cloneRepository($path, $repository, $name = null, $bareMode = false)
     {
+        $path = rtrim($path, '/');
+
         if (null === $name) {
-            if ($bareMode) {
-                $name = basename($repository);
+            if ($pos = max(strpos($repository, '@'), strpos($repository, ':'))) {
+                $tmp = substr($repository, $pos + 1);
             } else {
-                $name = basename($repository, '.git');
+                $tmp = $repository;
+            }
+
+            if ($bareMode) {
+                $name = basename($tmp);
+            } else {
+                $name = basename($tmp, '.git');
             }
         }
 
@@ -208,7 +216,7 @@ class Repository
             mkdir($path, 0777, true);
         }
 
-        if (file_exists(rtrim($path, '/') . '/' . $name)) {
+        if (file_exists($path . '/' . $name)) {
             throw new RuntimeException('The destination already exists.');
         }
 
@@ -222,6 +230,6 @@ class Repository
         );
         $command->run();
 
-        return new self($path);
+        return new self($path . '/' . $name);
     }
 }

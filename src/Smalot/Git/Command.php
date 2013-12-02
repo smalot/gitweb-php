@@ -52,20 +52,22 @@ class Command
     public static function setGitPath($path)
     {
         if (!$path || !is_file($path) || !is_executable($path)) {
-            throw new RuntimeException('Missing git path.');
+            throw new InvalidArgumentException('Missing git path.');
         }
 
         self::$git = $path;
     }
 
     /**
+     * @param bool $checkReturn
+     *
      * @return string
      * @throws RuntimeException
      */
-    public function run()
+    public function run($checkReturn = true)
     {
         if (is_null($this->dir)) {
-            $command = sprintf('%s %s', escapeshellcmd(self::$git), $this->command);
+            $command = sprintf('%s %s 2>&1', escapeshellcmd(self::$git), $this->command);
         } else {
             $command = sprintf(
                 'cd %s && %s %s 2>&1',
@@ -86,7 +88,7 @@ class Command
             echo "---------------------------\n";
         }
 
-        if ($returnVar) {
+        if ($returnVar && $checkReturn) {
             // Git 1.5.x returns 1 when running "git status"
             if (1 === $returnVar && 0 === strncmp($this->command, 'status', 6)) {
                 // it's ok

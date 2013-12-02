@@ -5,8 +5,7 @@ include 'vendor/autoload.php';
 //$repository = \Smalot\Git\Repository::create('/tmp/test_git');
 //var_dump($repository);
 //
-//$repository = \Smalot\Git\Repository::cloneRepository('/tmp/', 'git@github.com:smalot/magento-client.git', null);
-$repository = \Smalot\Git\Repository::cloneRepository('/home/smalot/repositories/smalot/', '/home/smalot/repositories/test.git', null, true);
+$repository = \Smalot\Git\Repository::cloneRepository('/tmp/', 'git@github.com:smalot/magento-client.git', null);
 var_dump($repository);
 
 //$repository = new \Smalot\Git\Repository('/tmp/magento-client');
