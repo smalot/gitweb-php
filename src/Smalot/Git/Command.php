@@ -4,6 +4,7 @@ namespace Smalot\Git;
 
 /**
  * Class Command
+ *
  * @package Smalot\Git
  */
 class Command

@@ -4,6 +4,7 @@ namespace Smalot\Git;
 
 /**
  * Class Commit
+ *
  * @package Smalot\Git
  */
 class Commit
@@ -31,6 +32,15 @@ class Commit
     {
         $this->name       = $name;
         $this->repository = $repository;
+    }
+
+    /**
+     * Avoid circular references
+     */
+    public function __destruct()
+    {
+        unset($this->repository);
+        $this->repository = null;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Smalot\Git;
 
 /**
  * Class Branch
+ *
  * @package Smalot\Git
  */
 class Branch
@@ -38,6 +39,15 @@ class Branch
         $this->name       = $name;
         $this->repository = $repository;
         $this->isRemote   = $isRemote;
+    }
+
+    /**
+     * Avoid circular references
+     */
+    public function __destruct()
+    {
+        unset($this->repository);
+        $this->repository = null;
     }
 
     /**

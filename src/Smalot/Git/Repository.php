@@ -4,6 +4,7 @@ namespace Smalot\Git;
 
 /**
  * Class Repository
+ *
  * @package Smalot\Git
  */
 class Repository

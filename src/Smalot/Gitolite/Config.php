@@ -24,8 +24,8 @@ class Config
     public function getVariables($fresh = false)
     {
         if (null === $this->variables || $fresh) {
-            $command = new Command('query-rc -a');
-            $result  = $command->run(false);
+            $command   = new Command('query-rc -a');
+            $result    = $command->run(false);
             $variables = array();
 
             preg_match_all('/([A-Za-z0-9\_]+)=([^\s]+)/ms', $result, $matches);

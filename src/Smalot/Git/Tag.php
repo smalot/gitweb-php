@@ -4,6 +4,7 @@ namespace Smalot\Git;
 
 /**
  * Class Tag
+ *
  * @package Smalot\Git
  */
 class Tag
@@ -31,6 +32,15 @@ class Tag
     {
         $this->name       = $name;
         $this->repository = $repository;
+    }
+
+    /**
+     * Avoid circular references
+     */
+    public function __destruct()
+    {
+        unset($this->repository);
+        $this->repository = null;
     }
 
     /**
